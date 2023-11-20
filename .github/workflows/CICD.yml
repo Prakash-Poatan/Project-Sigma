@@ -1,29 +1,42 @@
-name: build-test-deploy
-on: push
-jobs: 
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-    steps: 
-      - name: checkout repo
-        uses: actions/checkout@v3
-      - name: use node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - run: npm install
-      - run: npm run build
-  test: 
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the app
+      run: |
+        echo "Here is where you'd put your build commands!"
+
+  test:
+    name: Test
     needs: build
-    runs-on: ubuntu-latest
-    steps: 
-      - name: checkout repo
-        uses: actions/checkout@v3
-      - name: use node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - run: npm install
-      - run: npm test
+    runs_on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Test the app
+      run: |
+        echo "Here is where you'd put your test commands!"
+        
   deploy:
+    name: Deploy
     needs: test
     runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Deploy the app
+      run: |
+        echo "Here is where you'd put your deployment commands!"
