@@ -1,0 +1,34 @@
+name: 1Password - Secret Scanning
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up 1Password
+      uses: 1Password/connect-secure@v1
+      with:
+        connect_token: ${{ secrets.OP_CONNECT_TOKEN }}
+        connect_host: ${{ secrets.OP_CONNECT_HOST }}
+        
+    - name: Retrieve secret from 1Password    
+      id: my_secret
+      env:
+        OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
+      run: |
+        echo "OP_ITEM=my_secret" >> $GITHUB_ENV
+      shell: bash
+    
+    - name: Build the project
+      run: |
+        echo "Here is where you'd put your build commands!"
+
+    # Add rest of your jobs such as 'test' and 'deploy'
