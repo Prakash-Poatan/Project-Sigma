@@ -22,7 +22,7 @@ jobs:
         python-version: 3.9
 
     - name: Get secrets from 1Password
-      uses: 1Password/secrets@v1
+      uses: 1password/load-secrets-action/configure@v1
       with:
         subdomain: my
         vault: 1Pass
