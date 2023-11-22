@@ -23,6 +23,9 @@ jobs:
         
       env:
         SECRET: op://app-cicd/hello-world/secret
+
+    - name: Print masked secret  
+      run: echo $SECRET
         
     - name: Running tests
       run: |
