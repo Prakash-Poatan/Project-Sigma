@@ -24,6 +24,7 @@ jobs:
     - name: Get secrets from 1Password
       uses: 1password/load-secrets-action/configure@v1
       with:
+        service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
         subdomain: my
         vault: 1Pass
         secrets: |
