@@ -1,34 +1,41 @@
-name: 1Password - Secret Scanning
-
+name: Build and Test
 on:
   push:
     branches:
-      - master
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
 
 jobs:
-  build:
-    name: Build
+  build-and-test:
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out repository
+      uses: actions/checkout@v2
 
-    - name: Set up 1Password
-      uses: 1Password/connect-secure@v1
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        connect_token: ${{ secrets.OP_CONNECT_TOKEN }}
-        connect_host: ${{ secrets.OP_CONNECT_HOST }}
-        
-    - name: Retrieve secret from 1Password    
-      id: my_secret
+        python-version: 3.9
+
+    - name: Get secrets from 1Password
+      uses: 1Password/secrets@v1
+      with:
+        subdomain: my
+        vault: 1Pass
+        secrets: |
+          MY_SECRET=Git1p
       env:
         OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
-      run: |
-        echo "OP_ITEM=my_secret" >> $GITHUB_ENV
-      shell: bash
-    
-    - name: Build the project
-      run: |
-        echo "Here is where you'd put your build commands!"
 
-    # Add rest of your jobs such as 'test' and 'deploy'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        export MY_SECRET="${{ secrets.MY_SECRET }}"
+        pytest
