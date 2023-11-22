@@ -16,22 +16,16 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
-    - name: Setting up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
     - name: Fetching secrets from 1Password
       uses: 1password/load-secrets-action/configure@v1
       with:
         service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-        subdomain: my
-        vault: 1Pass
-
+        
       env:
         SECRET: op://app-cicd/hello-world/secret
         
     - name: Running tests
       run: |
-        export MY_SECRET="${{ secrets.MY_SECRET }}"
+        ls -lah
+        pwd
         whoami
