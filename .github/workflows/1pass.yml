@@ -8,7 +8,7 @@ on:
       - 'master'
 
 jobs:
-  build-and-test:
+  Build Repo Secrets:
 
     runs-on: ubuntu-latest
 
