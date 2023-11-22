@@ -27,11 +27,10 @@ jobs:
         service-account-token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
         subdomain: my
         vault: 1Pass
-        secrets: |
-          MY_SECRET=Git1p
-      env:
-        OP_CONNECT_TOKEN: ${{ secrets.OP_CONNECT_TOKEN }}
 
+      env:
+        SECRET: op://app-cicd/hello-world/secret
+        
     - name: Run tests
       run: |
         export MY_SECRET="${{ secrets.MY_SECRET }}"
