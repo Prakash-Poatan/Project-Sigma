@@ -1,0 +1,23 @@
+name: TruffleHog Secrets Scanning
+
+on: [push]
+
+jobs:
+  TruffleHog-Scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install TruffleHog
+      run: pip install truffleHog
+
+    - name: Run TruffleHog
+      run: truffleHog --regex --entropy=False https://github.com/Crushoverride007/Project-Sigma.git
+
