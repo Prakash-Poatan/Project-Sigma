@@ -1,22 +1,19 @@
-name: TruffleHog Secrets Scanning
+name: TruffleHog Secrets Scan
 
 on: [push]
 
 jobs:
-  TruffleHog-Scan:
+  TruffleHog:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-    - name: Install TruffleHog
-      run: pip install truffleHog
-
-    - name: Run TruffleHog
-      run: python -m truffleHog --regex --entropy=False https://github.com/Crushoverride007/Project-Sigma.git
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --debug --only-verified
