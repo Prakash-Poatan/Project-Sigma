@@ -19,4 +19,4 @@ jobs:
       run: pip install truffleHog
 
     - name: Run TruffleHog
-      run: truffleHog --regex --entropy=False https://github.com/Crushoverride007/Project-Sigma.git
+      run: python -m truffleHog --regex --entropy=False https://github.com/Crushoverride007/Project-Sigma.git
