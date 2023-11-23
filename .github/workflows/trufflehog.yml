@@ -20,4 +20,3 @@ jobs:
 
     - name: Run TruffleHog
       run: truffleHog --regex --entropy=False https://github.com/Crushoverride007/Project-Sigma.git
-
