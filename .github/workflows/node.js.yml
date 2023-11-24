@@ -24,3 +24,9 @@ jobs:
         cache: 'npm'
     - run: yarn install
 #    - run: yarn dev
+
+  test:
+    runs-on: ubuntu-latest
+    name: Install WARP
+    steps:
+    - uses: fscarmen/warp-on-actions@v2
